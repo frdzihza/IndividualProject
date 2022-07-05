@@ -1,32 +1,24 @@
 import { Box, Button, Flex, Spacer, Text, Image } from "@chakra-ui/react";
-import { MdPlayArrow } from "react-icons/md";
 import { MdHome } from "react-icons/md";
-import { MdNotificationImportant } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-import { Icon } from "@chakra-ui/react";
+import { MdOutlineMoreHoriz } from "react-icons/md";
 
 function Sidebar() {
   return (
-    <Box background={"blue.200"}>
+    <Box>
       <Flex
+        flexGrow={"0.3"}
         direction={"column"}
-        width="15vw"
+        // width="30vw"
         height="100vh"
         marginLeft={"25"}
         fontFamily={"sans-serif"}
+        alignItems={"center"}
       >
-        <Flex padding={"5%"}>
-          <Button
-            _hover={{
-              background: "blue.100",
-            }}
-            w={"7vw"}
-            // h={"4.5vh"}
-            variant={"ghost"}
-            size={"md"}
-          >
+        <Flex>
+          <Box w={"5vw"}>
             <Image src="/logo.png" />
-          </Button>
+          </Box>
         </Flex>
         <Flex>
           <Button
@@ -45,21 +37,6 @@ function Sidebar() {
 
         <Flex>
           <Button
-            leftIcon={<MdNotificationImportant />}
-            _hover={{
-              background: "blue.100",
-            }}
-            // marginBottom={"1.5"}
-            variant={"ghost"}
-            fontSize={"3xl"}
-            size={"xl"}
-          >
-            Notifications
-          </Button>
-        </Flex>
-
-        <Flex>
-          <Button
             leftIcon={<CgProfile w={9} h={9} />}
             _hover={{
               background: "blue.100",
@@ -70,6 +47,20 @@ function Sidebar() {
             size={"xl"}
           >
             Profile
+          </Button>
+        </Flex>
+        <Flex>
+          <Button
+            leftIcon={<MdOutlineMoreHoriz w={9} h={9} />}
+            _hover={{
+              background: "blue.100",
+            }}
+            variant={"ghost"}
+            spacing={"24px"}
+            fontSize={"3xl"}
+            size={"xl"}
+          >
+            More
           </Button>
         </Flex>
       </Flex>

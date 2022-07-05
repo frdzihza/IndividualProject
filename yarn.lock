@@ -319,7 +319,7 @@
     "@chakra-ui/react-utils" "2.0.1"
     "@chakra-ui/utils" "2.0.2"
 
-"@chakra-ui/popover@2.0.2":
+"@chakra-ui/popover@2.0.2", "@chakra-ui/popover@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@chakra-ui/popover/-/popover-2.0.2.tgz#14265da8007352497b914e3d9338e9333bb8927c"
   integrity sha512-i9Tsx+gpN470V7eLPng+lVK25DfUdQ44OAzWMUavIiutCtVJknZEPYbSr72JnT4NHBnr7b8rqUBEYq9+36LmlQ==

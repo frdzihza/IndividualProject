@@ -7,7 +7,6 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
-import Login from "../Login";
 
 function Register() {
   return (
@@ -19,12 +18,7 @@ function Register() {
         "linear-gradient(90deg, rgba(208,206,205,1) 10%, rgba(200,42,42,1) 63%)"
       }
     >
-      <Flex
-        h={"100vh"}
-        width="1250px"
-        justifyContent={"center"}
-        // backgroundColor={"blue.300"}
-      >
+      <Flex h={"100vh"} width="1250px" justifyContent={"center"}>
         <Image src="/logo.png" />
       </Flex>
       <Flex
@@ -32,27 +26,26 @@ function Register() {
         height={"100vh"}
         justifyContent={"center"}
         alignItems="center"
-        // backgroundColor={"blackAlpha.500"}
       >
         <Flex direction="column" p={12} rounded={6}>
           <Heading mb={6}>Sign Up</Heading>
           <Input
             type="text"
-            value={""}
+            // value={""}
             placeholder="Username"
             variant="filled"
             mb={3}
           />
           <Input
             type="text"
-            value={""}
+            // value={""}
             placeholder="Email"
             variant="filled"
             mb={3}
           />
           <Input
             type="password"
-            value={""}
+            // value={""}
             placeholder="Password"
             variant="filled"
             mb={6}

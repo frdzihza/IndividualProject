@@ -1,13 +1,20 @@
 import { Box, Button, Flex, Heading, Input } from "@chakra-ui/react";
 function Login() {
   return (
-    <Flex height="85vh" alignItems="center" justifyContent="center" src="">
-      <Flex direction="column" background="blue.400" p={12} rounded={6}>
-        <Heading mb={6}>Login</Heading>
+    <Flex
+      height="100vh"
+      alignItems="center"
+      justifyContent="center"
+      background={
+        "linear-gradient(90deg, rgba(208,206,205,1) 10%, rgba(200,42,42,1) 63%)"
+      }
+    >
+      <Flex direction="column" p={12} rounded={6}>
+        <Heading mb={6}>Sign In</Heading>
         <Input
           type="text"
           value={""}
-          placeholder="username"
+          placeholder="Username"
           variant="filled"
           mb={3}
         />
