@@ -8,28 +8,39 @@ import {
   Image,
   Input,
 } from "@chakra-ui/react";
+import { MdInsertPhoto } from "react-icons/md";
 
 function TalkBox() {
   return (
-    <Flex>
+    <Flex backg>
       <Image
         src={"/profile-pict.png"}
         borderRadius={"full"}
         boxSize="50px"
         objectFit={"cover"}
       />
-      <Flex direction={"column"}>
+      <Flex direction={"row"}>
         <form>
           <Input
             type={"text"}
-            marginLeft={"1"}
-            style={{ width: "356%" }}
+            marginLeft={"5px"}
+            // style={{ width: "356%" }}
+            w={"353%"}
             placeholder="What's on your mind?"
             variant={"ghost"}
           />
-          <Button display={"flex"} justifyContent={"right"}>
-            Talk to us
-          </Button>
+          <Flex marginLeft={"5px"} w={"353%"} alignItems={"center"}>
+            <Flex mt={"3"}>
+              <MdInsertPhoto />
+              <MdInsertPhoto />
+              <MdInsertPhoto />
+              <MdInsertPhoto />
+            </Flex>
+            <Spacer />
+            <Button px={"5"} py={"2"} rounded={"full"}>
+              Talk to us
+            </Button>
+          </Flex>
         </form>
       </Flex>
     </Flex>

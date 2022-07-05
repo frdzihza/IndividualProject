@@ -13,7 +13,7 @@ function Register() {
     <Flex
       // height="85vh"
       alignItems="center"
-      justifyContent={"space-evenly"}
+      justifyContent={"space-between"}
       background={
         "linear-gradient(90deg, rgba(208,206,205,1) 10%, rgba(200,42,42,1) 63%)"
       }
@@ -27,8 +27,14 @@ function Register() {
         justifyContent={"center"}
         alignItems="center"
       >
-        <Flex direction="column" p={12} rounded={6}>
-          <Heading mb={6}>Sign Up</Heading>
+        <Flex direction="column" h={"100vh"} justifyContent={"center"}>
+          <Heading mb={"6"} size={"2xl"} fontStyle={"oblique"} as={"h1"}>
+            {" "}
+            Join Talk Today!
+          </Heading>
+          <Heading as={"h2"} mb={6}>
+            Sign Up
+          </Heading>
           <Input
             type="text"
             // value={""}
@@ -53,7 +59,7 @@ function Register() {
           <Button colorScheme="teal">Sign Up</Button>
           <Text marginTop={"15"}>
             Already Have an Account?
-            <Link href={"/Login"}> Sign In</Link>
+            <Link href={"/login"}> Sign In</Link>
           </Text>
         </Flex>
       </Flex>

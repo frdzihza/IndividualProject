@@ -12,12 +12,12 @@ import TalkBox from "./TalkBox";
 
 function Feed() {
   return (
-    <Flex flexGrow={"0.5"} backgroundColor={"red"} boxShadow="outline">
+    <Flex flexGrow={"0.5"} boxShadow="outline">
       <Flex fontWeight={"bold"} fontSize={"lg"} direction={"column"}>
         Home
-        <Box marginTop={"3"}>
+        <Flex marginTop={"3"}>
           <TalkBox />
-        </Box>
+        </Flex>
       </Flex>
     </Flex>
   );
