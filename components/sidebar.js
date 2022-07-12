@@ -7,7 +7,6 @@ function Sidebar() {
   return (
     <Box>
       <Flex
-        flexGrow={"0.3"}
         direction={"column"}
         // width="30vw"
         height="100vh"

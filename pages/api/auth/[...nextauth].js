@@ -4,9 +4,9 @@ import axiosInstance from "../../../services/axios";
 
 const credentialInstance = CredentialsProvider({
   async authorize(credentials) {
-    const { email, password } = credentials;
-    const resGetUser = await axiosInstance.get("/users", {
-      params: { email, password },
+    const { username, password } = credentials;
+    const resGetUser = await axiosInstance.get("/users/login", {
+      params: { username, password },
     });
     const user = resGetUser.data[0];
 
