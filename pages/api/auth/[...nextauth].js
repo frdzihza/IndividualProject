@@ -4,17 +4,17 @@ import axiosInstance from "../../../services/axios";
 
 const credentialInstance = CredentialsProvider({
   async authorize(credentials) {
-    const { username, password } = credentials;
-    const resGetUser = await axiosInstance.get("/users/login", {
-      params: { username, password },
-    });
-    const user = resGetUser.data[0];
+    try {
+      const { username, password } = credentials;
 
-    if (!user) {
-      throw new Error("Username atau Password salah");
+      const res = await axiosInstance.post("/users/login", { username, password });
+
+      const user = res.data.data.result;
+
+      return user;
+    } catch (error) {
+      throw error.response.data;
     }
-
-    return { email: user.email };
   },
 });
 
@@ -23,4 +23,17 @@ export default NextAuth({
     jwt: true,
   },
   providers: [credentialInstance],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+
+      return token;
+    },
+    async session({ session, token }) {
+      session.user = token.user;
+      return session;
+    },
+  },
 });

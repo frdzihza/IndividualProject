@@ -8,18 +8,24 @@ import {
   Box,
   Image,
 } from "@chakra-ui/react";
+import Content from "./content";
 import TalkBox from "./TalkBox";
 
-function Feed() {
+function Feed(props) {
   return (
-    <Flex flexGrow={"0.5"} boxShadow="outline">
-      <Flex fontWeight={"bold"} fontSize={"lg"} direction={"column"}>
-        Home
-        <Flex marginTop={"3"}>
-          <TalkBox />
+    <Box  w={"80%"}>
+      <Flex borderStart={"2px"}>
+        <Flex fontWeight={"bold"} fontSize={"lg"} direction={"column"}>
+          Home
+          <Flex marginTop={"3"}>
+            <TalkBox user={props.user} />
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
+      <Flex>
+        <Content />
+      </Flex>
+    </Box>
   );
 }
 

@@ -34,6 +34,7 @@ function Login() {
         <Heading mb={6}>Sign In</Heading>
         <Input
           type="text"
+          value={username}
           placeholder="Username"
           variant="filled"
           mb={3}
@@ -41,17 +42,23 @@ function Login() {
         />
         <Input
           type="password"
+          value={password}
           placeholder="**************"
           variant="filled"
           mb={6}
           onChange={(event) => setPassword(event.target.value)}
         />
 
-        <Button color="blue.500" w={"full"} onClick={onLoginClick}>
+        <Button
+        
+          color="blue.500"
+          w={"full"}
+          onClick={onLoginClick}
+        >
           Login
         </Button>
         <Text marginTop={"15"}>
-          Didn't Have an Account?
+          Did not Have an Account?
           <Link href={"/register"}> Sign Up</Link>
         </Text>
       </Flex>

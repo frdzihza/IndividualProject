@@ -13,40 +13,51 @@ import {
 import {useState} from "react"
 import axiosInstance from "../../services/axios";
 import { getSession } from "next-auth/react";
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 
 function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("")
+  const [fullName, setFullName] = useState("")
   const [disabled, setDisabled] = useState(false);
+  
   
 
   const onRegisterClick = async () => {
     try {
+
+    if(password != password2){
+      throw{
+        code: 400,
+        message: "Password Did not Match"
+      }
+    }
       const body = {
         username,
         email,
-        password,
+        fullName,
+        password: password
       };
       const res = await axiosInstance.post("/users", body);
       alert(res.data.message);
     } catch (error) {
-      alert(error.response.data.message);
+      if(error.response?.data) return alert(error.response.data.message);
+      
+      alert(error.message)
     }
   };
-
 
   return (
     <Flex
       alignItems="center"
       justifyContent={"space-between"}
-      background={
-        "linear-gradient(to top, #5ee7df 0%, #b490ca 100%)"
-      }
+      background={"linear-gradient(to top, #5ee7df 0%, #b490ca 100%)"}
     >
       <Flex h={"100vh"} width="1250px" justifyContent={"center"}>
-        <Image src="/logo.png" />
+        <Image src="/talk.png" />
       </Flex>
       <Flex
         width="1250px"
@@ -56,19 +67,29 @@ function Register() {
       >
         <Flex direction="column" h={"100vh"} justifyContent={"center"}>
           <Heading mb={"6"} size={"2xl"} fontStyle={"oblique"} as={"h1"}>
-            {" "}
             Join Talk Today!
           </Heading>
           <Heading as={"h2"} mb={6}>
             Sign Up
           </Heading>
           <FormControl isRequired>
+            <FormLabel fontSize={"xl"}>Full Name</FormLabel>
+            <Input
+              type="text"
+              value={fullName}
+              placeholder="Full Name"
+              variant="filled"
+              // mb={6}
+              onChange={(event) => setFullName(event.target.value)}
+            />
+          </FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={"xl"} htmlFor="username">
               Username
             </FormLabel>
             <Input
               type="text"
-              // value={""}
+              value={username}
               placeholder="Username"
               variant="filled"
               id="username"
@@ -77,12 +98,10 @@ function Register() {
             />
           </FormControl>
           <FormControl isRequired>
-            <FormLabel fontSize={"xl"}>
-              Email
-            </FormLabel>
+            <FormLabel fontSize={"xl"}>Email</FormLabel>
             <Input
               type="text"
-              // value={""}
+              value={email}
               placeholder="Email"
               variant="filled"
               // mb={3}
@@ -90,27 +109,26 @@ function Register() {
             />
           </FormControl>
           <FormControl isRequired>
-            <FormLabel fontSize={"xl"}>
-              Password
-            </FormLabel>
+            <FormLabel fontSize={"xl"}>Password</FormLabel>
             <Input
               type="password"
-              // value={""}
+              value={password}
               placeholder="Password"
               variant="filled"
               // mb={6}
               onChange={(event) => setPassword(event.target.value)}
             />
+            
           </FormControl>
           <FormControl isRequired>
-            <FormLabel fontSize={"xl"}>Re-Enter Password</FormLabel>
+            <FormLabel fontSize={"xl"}>Repeat Password</FormLabel>
             <Input
               type="password"
-              // value={""}
+              value={password2}
               placeholder="Password"
               variant="filled"
               mb={6}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(event) => setPassword2(event.target.value)}
             />
           </FormControl>
           <Button
