@@ -108,6 +108,7 @@ const postHandler = async () => {
             <Button
               // px={"5"}
               // py={"2"}
+              bgColor={"red.200"}
               marginLeft={"300px"}
               rounded={"full"}
               onClick={postHandler}

@@ -36,14 +36,14 @@ function Feed(props) {
   const [imageUser, setImageUser] = useState(
     my_api + props.post.createdBy.profilePicture
   );
-  // console.log(props.post.createdBy);
 
   const [editMode, setEditMode] = useState(false);
-  const [likers, setLikers] = useState(props.likers)
-  const [comment, setComment] = useState(props.comment)
+  const [likers, setLikers] = useState(props.post.likers.length)
+  const [comment, setComment] = useState(props.post.comment.length)
   const [isLiked, setIsLiked] = useState(
     props.post.likers.includes(props.user._id)
   );
+  console.log(props.user._id);
   
   const [post, setPost] = useState(props.post)
 
@@ -54,11 +54,10 @@ function Feed(props) {
       const config = {
         body: { createdBy: post.createdBy},
         headers: { Authorization: `Bearer ${accessToken}` },
-      };
+      }
       const isDeleted = await axiosInstance.delete(
         `/posts/${post._id}`,
         config
-        
       );
       window.location.reload();
       alert(isDeleted.data.message);
@@ -75,7 +74,6 @@ function Feed(props) {
         body: { caption: post.caption },
         headers: { Authorization: `Bearer ${accessToken}` },
       };
-      
       const editPost = await axiosInstance.patch(
         `/posts/${post._id}`,
         config
@@ -96,13 +94,16 @@ function Feed(props) {
         headers: { Authorization: `Bearer ${accessToken}` },
       };
       await axiosInstance.put(
-        `/posts/${post._id}`,
+        `/posts/like/${post._id}`,
         {
-          userId: props.user.userId,
+          userId: props.user._id,
         },
         config
       );
-    } catch (error) {}
+
+    } catch (error) {
+     alert(error.message)
+    }
     setLikers(isLiked ? likers - 1 : likers + 1);
     setIsLiked(!isLiked);
   };
@@ -127,12 +128,14 @@ function Feed(props) {
           rounded={"full"}
           marginBottom={2}
         ></Image>
+        <Flex direction={"column"}>
         <Text marginStart={3} marginTop={2} fontSize="xl">
           @{post.createdBy.username}
         </Text>
-        <Text marginStart={3} marginTop={3}>
-          {moment(post.createdAt).fromNow()}
+        <Text marginStart={3} fontSize={"xs"} fontStyle={"italic"}>
+          {moment(post.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
         </Text>
+        </Flex>
         <Spacer />
         <Menu>
           <MenuButton
@@ -147,26 +150,7 @@ function Feed(props) {
           </MenuList>
         </Menu>
       </Flex>
-      <Input
-        marginStart={12}
-        marginBottom={2}
-        name="caption"
-        variant="unstyled"
-        value={post.caption}
-        onChange={onChangeHandler}
-      />
-      {post.postImage && (
-        <Image
-          marginStart={12}
-          rounded="10"
-          objectFit={"cover"}
-          src={imagePost}
-          maxHeight="400px"
-          width="90%"
-        ></Image>
-      )}
-      <NextLink href={`/post/${post._id}`}>
-        <Link variant="unstyle">
+        
           <Text marginStart={12} marginBottom={2}>
             {post.caption}
           </Text>
@@ -179,8 +163,7 @@ function Feed(props) {
               width="50%"
             ></Image>
           )}
-        </Link>
-      </NextLink>
+
       <Flex flexDirection={"row"}>
         {isLiked ? (
           <IconButton
@@ -194,7 +177,7 @@ function Feed(props) {
               rounded: "full",
             }}
             icon={<BsHeartFill />}
-            onClick={onLikeHandler}
+            onClick={() => onLikeHandler()}
           ></IconButton>
         ) : (
           <IconButton
@@ -207,7 +190,7 @@ function Feed(props) {
               borderRadius: "25px",
             }}
             icon={<BsHeart />}
-            onClick={onLikeHandler}
+            onClick={() => onLikeHandler()}
           ></IconButton>
         )}
         <Text marginTop={1.5}>{likers}</Text>

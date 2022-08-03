@@ -22,8 +22,7 @@ const renderPost = () => {
       );
     });
   };
-  console.log(post)
-
+  // console.log(key)
 
   return (
     <Flex>
