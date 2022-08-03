@@ -13,9 +13,6 @@ function Sidebar() {
   const onLogoutClick = async () => {
   await signOut();
   };
-
-  // const profileClick = 
-
   return (
     <Box>
       <Flex
@@ -58,7 +55,7 @@ function Sidebar() {
             spacing={"24px"}
             fontSize={"3xl"}
             size={"xl"}
-            mt={"20"}
+            // mt={"20"}
           >
             Profile
           </Button>
@@ -77,7 +74,7 @@ function Sidebar() {
                 spacing={"24px"}
                 fontSize={"3xl"}
                 size={"xl"}
-                mt={"20"}
+                // mt={"20"}
                 onClick={onLogoutClick}
               >
                 Logout
