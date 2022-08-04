@@ -39,13 +39,12 @@ function Feed(props) {
     my_api + props.post.createdBy.profilePicture
   );
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [editMode, setEditMode] = useState(false);
   const [likers, setLikers] = useState(props.post.likers.length)
   const [comment, setComment] = useState(props.post.comment.length)
   const [isLiked, setIsLiked] = useState(
     props.post.likers.includes(props.user._id)
   );
-  // console.log(props.user._id);
+ 
   
   const [post, setPost] = useState(props.post)
 
@@ -68,26 +67,7 @@ function Feed(props) {
     }
   };
   
-  const onEditHandler = async () => {
-    try {
-      const session = await getSession();
-      const { accessToken } = session.user;
-      const config = {
-        body: { caption: post.caption },
-        headers: { Authorization: `Bearer ${accessToken}` },
-      };
-      const editPost = await axiosInstance.patch(
-        `/posts/${post._id}`,
-        config
-      );
-      alert(editPost.data.message);
-      setEditMode(false);
-    } catch (error) {
-      if (error.response.data) return alert(error.response.data.message);
-      alert(error.message);
-    }
-  };
-
+ 
 const onSavePatchPostButton = async (body) => {
   try {
     const session = await getSession();
