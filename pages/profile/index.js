@@ -16,7 +16,7 @@ const {fullName, username, email, bio, profilePicture} = user
 const [imageSource, setImageSource] = useState(
   my_api + profilePicture
   );
-console.log(imageSource);
+// console.log(imageSource);
 
 const onPicChange = (event) =>{
   setProfAva(event.target.files[0])

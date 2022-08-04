@@ -14,6 +14,7 @@ import {
   MenuItem,
   IconButton,
   Link,
+  useDisclosure,
 } from "@chakra-ui/react";
 import {
   BsHeart,
@@ -28,6 +29,7 @@ import { getSession } from "next-auth/react";
 import axiosInstance from "../services/axios";
 import { my_api } from "../constraint";
 import NextLink from "next/link";
+import EditPost from "./EditPost";
 
 function Feed(props) {
   const [imagePost, setImagePost] = useState(
@@ -36,14 +38,14 @@ function Feed(props) {
   const [imageUser, setImageUser] = useState(
     my_api + props.post.createdBy.profilePicture
   );
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [editMode, setEditMode] = useState(false);
   const [likers, setLikers] = useState(props.post.likers.length)
   const [comment, setComment] = useState(props.post.comment.length)
   const [isLiked, setIsLiked] = useState(
     props.post.likers.includes(props.user._id)
   );
-  console.log(props.user._id);
+  // console.log(props.user._id);
   
   const [post, setPost] = useState(props.post)
 
@@ -62,7 +64,7 @@ function Feed(props) {
       window.location.reload();
       alert(isDeleted.data.message);
     } catch (error) {
-      alert(error.message);
+      alert("itsnotyourpost");
     }
   };
   
@@ -85,6 +87,28 @@ function Feed(props) {
       alert(error.message);
     }
   };
+
+const onSavePatchPostButton = async (body) => {
+  try {
+    const session = await getSession();
+
+    const { accessToken } = session.user;
+
+    const config = {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    };
+
+    await axiosInstance.patch(`/posts/${post._id}`, body, config);
+    const getUserPost = await axiosInstance.get(`posts/${post._id}`,config);
+    setPost(getUserPost.data.data.message);
+    alert("update post success")
+    window.location.reload();
+  } catch (error) {
+    console.log(error);
+    alert("You cant edit other people post")
+    // alert(error.message);
+  }
+};
 
   const onLikeHandler = async () => {
     try {
@@ -129,12 +153,15 @@ function Feed(props) {
           marginBottom={2}
         ></Image>
         <Flex direction={"column"}>
-        <Text marginStart={3} marginTop={2} fontSize="xl">
-          @{post.createdBy.username}
-        </Text>
-        <Text marginStart={3} fontSize={"xs"} fontStyle={"italic"}>
-          {moment(post.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
-        </Text>
+          <Text marginStart={3} marginTop={2} fontSize="xl" fontWeight={"bold"}>
+            {props.post.createdBy.fullName}
+          </Text>
+          <Text marginStart={3}  fontSize="m">
+            @{props.post.createdBy.username}
+          </Text>
+          <Text marginStart={3} fontSize={"xs"} fontStyle={"italic"}>
+            {moment(props.post.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+          </Text>
         </Flex>
         <Spacer />
         <Menu>
@@ -145,24 +172,32 @@ function Feed(props) {
             variant="ghost"
           />
           <MenuList>
-            <MenuItem onClick={() => setEditMode(editMode)}>Edit</MenuItem>
+            <MenuItem onClick={onOpen}>
+              <EditPost
+                isOpen={isOpen}
+                onClose={onClose}
+                thisPost={props.post}
+                onSavePatchPostButton={onSavePatchPostButton}
+              />{" "}
+              Edit Post
+            </MenuItem>
             <MenuItem onClick={onDeleteHandler}>Delete</MenuItem>
           </MenuList>
         </Menu>
       </Flex>
-        
-          <Text marginStart={12} marginBottom={2}>
-            {post.caption}
-          </Text>
-          {post.imagePost && (
-            <Image
-              marginStart={12}
-              rounded="10"
-              src={imagePost}
-              maxHeight="400px"
-              width="50%"
-            ></Image>
-          )}
+
+      <Text marginStart={12} marginBottom={2}>
+        {props.post.caption}
+      </Text>
+      {props.post.imagePost && (
+        <Image
+          marginStart={12}
+          rounded="10"
+          src={imagePost}
+          maxHeight="400px"
+          width="50%"
+        ></Image>
+      )}
 
       <Flex flexDirection={"row"}>
         {isLiked ? (

@@ -52,7 +52,7 @@ export async function getServerSideProps(context) {
     };
 
     const res = await axiosInstance.get("/users/profile", config);
-    const getPost = await axiosInstance.get("/posts/timeline/all");
+    const getPost = await axiosInstance.get("/posts/timeline/all", config);
 
 
   

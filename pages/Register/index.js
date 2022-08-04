@@ -45,8 +45,6 @@ function Register() {
       alert(res.data.message);
     } catch (error) {
       if(error.response?.data) return alert(error.response.data.message);
-      
-      alert(error.message)
     }
   };
 
