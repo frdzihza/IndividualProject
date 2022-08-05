@@ -46,30 +46,39 @@ const postHandler = async () => {
     } catch (error) {
       return alert(error.response.data?.message);
     }
+} else {
+  try {
+    await axiosInstance.post("/posts", newPost, config);
+    window.location.reload();
+    setCaption("");
+  } catch (error) {
+    
+  }
 };
 }
   return (
     <Box
       // backgroundColor={"red.300"}
       w={"1000px"}
+      marginLeft={"100px"}
       // border={"2px"}
     >
       <Flex marginLeft={"260px"} fontWeight={"bold"} fontSize={"lg"}>
-          Home
+        Home
       </Flex>
       <Flex
-      marginLeft={"200px"}
+        marginLeft={"200px"}
         // backgroundColor={"yellow.600"}
         w={"600px"}
         // h={"500px"}
         justifyContent="center"
       >
-      <Image
-        src={imageSource}
-        borderRadius={"full"}
-        boxSize="50px"
-        objectFit={"cover"}
-      />
+        <Image
+          src={imageSource}
+          borderRadius={"full"}
+          boxSize="50px"
+          objectFit={"cover"}
+        />
         <form>
           <Input
             type={"text"}
@@ -108,7 +117,9 @@ const postHandler = async () => {
             <Button
               // px={"5"}
               // py={"2"}
-              bgColor={"red.200"}
+              _hover={{
+                background: "#1DA1F2",
+              }}
               marginLeft={"300px"}
               rounded={"full"}
               onClick={postHandler}

@@ -23,7 +23,7 @@ const onPicChange = (event) =>{
   setImageSource(URL.createObjectURL(event.target.files[0]))
 }
 
- const onSaveAvatarButton = async () => {
+const onSaveAvatarButton = async () => {
   try {
     const session = await getSession();
 
@@ -90,6 +90,7 @@ const onSaveUpdateProfileButton = async (body) =>{
                 width={"200"}
                 height={"200"}
                 objectFit={"cover"}
+                
               />
               <Input type={"file"} onChange={onPicChange} />
               <Button variant={"ghost"} onClick={onSaveAvatarButton}>

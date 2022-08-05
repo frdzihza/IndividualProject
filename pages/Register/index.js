@@ -55,7 +55,7 @@ function Register() {
       background={"linear-gradient(to top, #5ee7df 0%, #b490ca 100%)"}
     >
       <Flex h={"100vh"} width="1250px" justifyContent={"center"}>
-        <Image src="/talk.png" />
+        <Image src="/talk-logo.png" />
       </Flex>
       <Flex
         width="1250px"

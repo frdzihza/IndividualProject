@@ -17,28 +17,24 @@ const [post, setPost] = useState(props.post);
 const renderPost = () => {
   return post.map((PST) => {
     return (
-      // <div>a</div>
       <Feed key={PST._id} post={PST} user={props.user} getPost={getPost}/>
       );
     });
   };
-  // console.log(key)
 
   return (
     <Flex>
       <Sidebar />
-      <Flex  flexDirection="column" marginInline={2}>
+      <Flex flexDirection="column" marginInline={2}>
         <TalkBox user={props.user} getPost={getPost} />
-            <Box
-              marginInlineStart={"25%"}
-              key={0}
-            >
-              {renderPost()}
-            </Box>
+        <Box marginInlineStart={"25%"} key={0}>
+          {renderPost()}
+        </Box>
       </Flex>
     </Flex>
   );
 }
+
 export async function getServerSideProps(context) {
   try {
     const session = await getSession({ req: context.req });

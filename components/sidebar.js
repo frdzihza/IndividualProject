@@ -23,42 +23,51 @@ function Sidebar() {
         fontFamily={"sans-serif"}
         alignItems={"center"}
       >
-        <Flex>
-          <Box w={"5vw"}>
-            <Image src="/logo.png" />
-          </Box>
-        </Flex>
+        <NextLink href={"/"}>
+          <Flex>
+            {/* <Image src="/talk-logo.png" /> */}
+            <Image
+              borderRadius="full"
+              boxSize="100px"
+              src="/talk-logo.png"
+              _hover={{
+                background: "#1DA1F2",
+              }}
+              cursor={"pointer"}
+            />
+          </Flex>
+        </NextLink>
         <Flex>
           <NextLink href="/">
-          <Button
-            leftIcon={<MdHome />}
-            // marginBottom={"0"}
-            variant={"ghost"}
-            fontSize={"3xl"}
-            _hover={{
-              background: "blue.100",
-            }}
-            size={"xl"}
-          >
-            Home
-          </Button>
+            <Button
+              leftIcon={<MdHome />}
+              // marginBottom={"0"}
+              variant={"ghost"}
+              fontSize={"3xl"}
+              _hover={{
+                background: "#1DA1F2",
+              }}
+              size={"xl"}
+            >
+              Home
+            </Button>
           </NextLink>
         </Flex>
         <Flex>
           <NextLink href="/profile">
-          <Button
-            leftIcon={<CgProfile w={9} h={9} />}
-            _hover={{
-              background: "blue.100",
-            }}
-            variant={"ghost"}
-            spacing={"24px"}
-            fontSize={"3xl"}
-            size={"xl"}
-            // mt={"20"}
-          >
-            Profile
-          </Button>
+            <Button
+              leftIcon={<CgProfile w={9} h={9} />}
+              _hover={{
+                background: "#1DA1F2",
+              }}
+              variant={"ghost"}
+              spacing={"24px"}
+              fontSize={"3xl"}
+              size={"xl"}
+              // mt={"20"}
+            >
+              Profile
+            </Button>
           </NextLink>
         </Flex>
         {session && (
@@ -68,7 +77,7 @@ function Sidebar() {
                 // leftIcon={<MdOutlineMoreHoriz w={9} h={9} />}
                 leftIcon={<MdLogout w={9} h={9} />}
                 _hover={{
-                  background: "blue.100",
+                  background: "#1DA1F2",
                 }}
                 variant={"ghost"}
                 spacing={"24px"}

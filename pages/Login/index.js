@@ -35,7 +35,7 @@ function Login() {
         <Input
           type="text"
           value={username}
-          placeholder="Username"
+          placeholder="Username or Email"
           variant="filled"
           mb={3}
           onChange={(event) => setUsername(event.target.value)}

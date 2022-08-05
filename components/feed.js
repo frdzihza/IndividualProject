@@ -20,7 +20,6 @@ import {
   BsHeart,
   BsHeartFill,
   BsThreeDots,
-  BsChatRightText,
 } from "react-icons/bs";
 import moment from "moment";
 import { MdOutlineModeComment } from "react-icons/md";
@@ -30,6 +29,7 @@ import axiosInstance from "../services/axios";
 import { my_api } from "../constraint";
 import NextLink from "next/link";
 import EditPost from "./EditPost";
+
 
 function Feed(props) {
   const [imagePost, setImagePost] = useState(
@@ -42,10 +42,8 @@ function Feed(props) {
   const [likers, setLikers] = useState(props.post.likers.length)
   const [comment, setComment] = useState(props.post.comment.length)
   const [isLiked, setIsLiked] = useState(
-    props.post.likers.includes(props.user._id)
+    props.post.likers.includes(props.user)
   );
- 
-  
   const [post, setPost] = useState(props.post)
 
   const onDeleteHandler = async () =>{
@@ -66,9 +64,8 @@ function Feed(props) {
       alert("itsnotyourpost");
     }
   };
-  
- 
-const onSavePatchPostButton = async (body) => {
+
+  const onSavePatchPostButton = async (body) => {
   try {
     const session = await getSession();
 
@@ -85,7 +82,7 @@ const onSavePatchPostButton = async (body) => {
     window.location.reload();
   } catch (error) {
     console.log(error);
-    alert("You cant edit other people post")
+    alert("You can not edit other people post")
     // alert(error.message);
   }
 };
@@ -112,16 +109,19 @@ const onSavePatchPostButton = async (body) => {
     setIsLiked(!isLiked);
   };
 
-  const onChangeHandler = (e) => {
-    setPost({ ...post, [e.target.name]: e.target.value });
-  };
-
   return (
     <Box
-      marginBottom={2}
+      marginTop={5}
       padding="3"
-      // marginInlineStart={"25%"}
+      marginInlineEnd={"31%"}
+      marginInlineStart={"10%"}
       // backgroundColor={"yellow"}
+      // _hover={{
+      //   background: "#1DA1F2",
+      // }}
+      // backgroundColor={"red"}
+      // border={"2px"}
+      // alignItems={"center"}
     >
       <Flex>
         <Image
@@ -134,13 +134,13 @@ const onSavePatchPostButton = async (body) => {
         ></Image>
         <Flex direction={"column"}>
           <Text marginStart={3} marginTop={2} fontSize="xl" fontWeight={"bold"}>
-            {props.post.createdBy.fullName}
+            {post.createdBy.fullName}
           </Text>
-          <Text marginStart={3}  fontSize="m">
-            @{props.post.createdBy.username}
+          <Text marginStart={3} fontSize="m">
+            @{post.createdBy.username}
           </Text>
           <Text marginStart={3} fontSize={"xs"} fontStyle={"italic"}>
-            {moment(props.post.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+            {moment(post.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
           </Text>
         </Flex>
         <Spacer />
@@ -165,20 +165,22 @@ const onSavePatchPostButton = async (body) => {
           </MenuList>
         </Menu>
       </Flex>
-
       <Text marginStart={12} marginBottom={2}>
-        {props.post.caption}
+        {post.caption}
       </Text>
-      {props.post.imagePost && (
-        <Image
-          marginStart={12}
-          rounded="10"
-          src={imagePost}
-          maxHeight="400px"
-          width="50%"
-        ></Image>
-      )}
-
+      <NextLink href={`/detailPost/${post._id}`}>
+        <Link>
+          {post.imagePost && (
+            <Image
+              marginStart={12}
+              rounded="10"
+              src={imagePost}
+              maxHeight="500px"
+              width="70%"
+            ></Image>
+          )}
+        </Link>
+      </NextLink>
       <Flex flexDirection={"row"}>
         {isLiked ? (
           <IconButton
@@ -209,21 +211,9 @@ const onSavePatchPostButton = async (body) => {
           ></IconButton>
         )}
         <Text marginTop={1.5}>{likers}</Text>
-        <NextLink href={`#`}>
-          <Link variant="unstyle">
-            <IconButton
-              marginStart={10}
-              padding="3"
-              variant={"unstyled"}
-              _hover={{
-                background: "#e8f5fe",
-                color: "red.400",
-                borderRadius: "25px",
-              }}
-              icon={<MdOutlineModeComment />}
-            ></IconButton>
-          </Link>
-        </NextLink>
+        <IconButton marginStart={10} padding="3" variant={"unstyled"}>
+          <MdOutlineModeComment />
+        </IconButton>
         <Text marginTop={1.5}>{comment}</Text>
       </Flex>
     </Box>
