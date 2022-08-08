@@ -51,85 +51,154 @@ const postHandler = async () => {
     await axiosInstance.post("/posts", newPost, config);
     window.location.reload();
     setCaption("");
+    // alert("Success Create a Post");
   } catch (error) {
     
   }
 };
 }
   return (
-    <Box
-      // backgroundColor={"red.300"}
-      w={"1000px"}
-      marginLeft={"100px"}
-      // border={"2px"}
-    >
-      <Flex marginLeft={"260px"} fontWeight={"bold"} fontSize={"lg"}>
-        Home
-      </Flex>
-      <Flex
-        marginLeft={"200px"}
-        // backgroundColor={"yellow.600"}
-        w={"600px"}
-        // h={"500px"}
-        justifyContent="center"
-      >
-        <Image
-          src={imageSource}
-          borderRadius={"full"}
-          boxSize="50px"
-          objectFit={"cover"}
-        />
-        <form>
-          <Input
-            type={"text"}
-            marginLeft={"5px"}
-            placeholder="What's on your mind?"
-            variant={"ghost"}
-            value={caption}
-            onChange={(event) => setCaption(event.target.value)}
-          />
-          {imagePost && (
-            <Flex flexDirection="column">
-              <MdOutlineClose onClick={() => setImagePost()} />
-              <Image src={URL.createObjectURL(imagePost)} />
-            </Flex>
-          )}
-          <Flex marginLeft={"5px"} alignItems={"center"}>
-            <label
-              htmlFor="imagePost"
-              style={{
-                alignItems: "center",
-                cursor: "pointer",
-                marginLeft: "10px",
-                marginTop: "5px",
-              }}
-            >
-              <MdInsertPhoto />
-              <Input
-                htmlFor={"imagepost"}
-                style={{ display: "none" }}
-                type="file"
-                objectFit={"fill"}
-                id="imagePost"
-                onChange={(event) => setImagePost(event.target.files[0])}
-              />
-            </label>
-            <Button
-              // px={"5"}
-              // py={"2"}
-              _hover={{
-                background: "#1DA1F2",
-              }}
-              marginLeft={"300px"}
-              rounded={"full"}
-              onClick={postHandler}
-            >
-              Talk to us
-            </Button>
+    <>
+      {!props.user.isVerified ? (
+        <Box w={"625px"} marginInlineStart={"13%"}>
+          <Flex marginLeft={"18px"} fontWeight={"bold"} fontSize={"lg"}>
+            Home
           </Flex>
-        </form>
-      </Flex>
-    </Box>
+          <Flex w={"625px"} justifyContent="center">
+            <Image
+              src={imageSource}
+              borderRadius={"full"}
+              boxSize="50px"
+              objectFit={"cover"}
+            />
+            <form>
+              <Input
+                type={"text"}
+                marginLeft={"5px"}
+                placeholder="What's on your mind?"
+                variant={"ghost"}
+                value={caption}
+                onChange={(event) => setCaption(event.target.value)}
+              />
+              {imagePost && (
+                <Flex flexDirection="column">
+                  <MdOutlineClose onClick={() => setImagePost()} />
+                  <Image src={URL.createObjectURL(imagePost)} />
+                </Flex>
+              )}
+              <Flex marginLeft={"5px"}>
+                <label
+                  htmlFor="imagePost"
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <MdInsertPhoto />
+                  <Input
+                    htmlFor={"imagepost"}
+                    style={{ display: "none" }}
+                    type="file"
+                    objectFit={"fill"}
+                    id="imagePost"
+                    onChange={(event) => setImagePost(event.target.files[0])}
+                  />
+                </label>
+                <Button
+                  px={"5"}
+                  py={"2"}
+                  _hover={{
+                    background: "#1DA1F2",
+                  }}
+                  marginInlineStart={"400px"}
+                  rounded={"full"}
+                  onClick={postHandler}
+                  isDisabled={true}
+                >
+                  Talk to us
+                </Button>
+              </Flex>
+            </form>
+          </Flex>
+        </Box>
+      ) : (
+        <Box
+          // backgroundColor={"red.300"}
+          w={"625px"}
+          // marginLeft={"100px"}
+          // marginInlineEnd={"31%"}
+          marginInlineStart={"13%"}
+          // borderWidth="1px"
+          // borderRadius="lg"
+          // overflow="hidden"
+          // border={"2px"}
+        >
+          <Flex fontWeight={"bold"} fontSize={"lg"}>
+            Home
+          </Flex>
+          <Flex
+            // marginLeft={"1px"}
+            // backgroundColor={"yellow.600"}
+            w={"570px"}
+            // h={"500px"}
+            justifyContent="center"
+          >
+            <Image
+              src={imageSource}
+              borderRadius={"full"}
+              boxSize="50px"
+              objectFit={"cover"}
+              // marginLeft={"10px"}
+            />
+            <form>
+              <Input
+                type={"text"}
+                marginLeft={"5px"}
+                placeholder="What's on your mind?"
+                variant={"ghost"}
+                value={caption}
+                onChange={(event) => setCaption(event.target.value)}
+              />
+              {imagePost && (
+                <Flex flexDirection="column">
+                  <MdOutlineClose onClick={() => setImagePost()} />
+                  <Image src={URL.createObjectURL(imagePost)} />
+                </Flex>
+              )}
+              <Flex marginLeft={"5px"}>
+                <label
+                  htmlFor="imagePost"
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <MdInsertPhoto />
+                  <Input
+                    htmlFor={"imagepost"}
+                    style={{ display: "none" }}
+                    type="file"
+                    objectFit={"fill"}
+                    id="imagePost"
+                    onChange={(event) => setImagePost(event.target.files[0])}
+                  />
+                </label>
+                <Button
+                  px={"5"}
+                  py={"2"}
+                  _hover={{
+                    background: "#1DA1F2",
+                  }}
+                  marginInlineStart={"400px"}
+                  rounded={"full"}
+                  onClick={postHandler}
+                >
+                  Talk to us
+                </Button>
+              </Flex>
+            </form>
+          </Flex>
+        </Box>
+      )}
+    </>
   );
 }
 

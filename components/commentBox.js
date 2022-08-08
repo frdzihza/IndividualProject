@@ -43,6 +43,7 @@ function CommentBox(props) {
       await axiosInstance.post("/comments", body, config);
       // {props.getComments()};
       setCommenting("");
+      alert("Success Commment")
       window.location.reload();
     } catch (error) {}
   };
@@ -62,7 +63,13 @@ function CommentBox(props) {
         <Text fontSize={"medium"} fontStyle="italic" fontWeight={"semibold"}>
           Max Characters 300
         </Text>
-        <Button variant="ghost" onClick={onCommentHandler}>
+        <Button
+          variant="solid"
+          onClick={onCommentHandler}
+          _hover={{
+            background: "#1DA1F2",
+          }}
+        >
           Comment
         </Button>
       </Flex>

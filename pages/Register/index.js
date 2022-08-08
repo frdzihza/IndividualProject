@@ -11,6 +11,8 @@ import {
   FormLabel
 } from "@chakra-ui/react";
 import {useState} from "react"
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import axiosInstance from "../../services/axios";
 import { getSession } from "next-auth/react";
 import PasswordStrengthBar from 'react-password-strength-bar';
@@ -23,7 +25,11 @@ function Register() {
   const [password2, setPassword2] = useState("")
   const [fullName, setFullName] = useState("")
   const [disabled, setDisabled] = useState(false);
+  const router = useRouter();
   
+  const { data: session } = useSession();
+  if (session) router.replace("/");
+
   
 
   const onRegisterClick = async () => {

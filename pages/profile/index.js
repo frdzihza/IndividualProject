@@ -16,7 +16,6 @@ const {fullName, username, email, bio, profilePicture} = user
 const [imageSource, setImageSource] = useState(
   my_api + profilePicture
   );
-// console.log(imageSource);
 
 const onPicChange = (event) =>{
   setProfAva(event.target.files[0])
@@ -71,7 +70,7 @@ const onSaveUpdateProfileButton = async (body) =>{
 }
  
   return (
-    <Box>
+    <Box background={"linear-gradient(to top, #5ee7df 0%, #b490ca 100%)"}>
       <Flex>
         <Sidebar />
         <Box
@@ -90,10 +89,15 @@ const onSaveUpdateProfileButton = async (body) =>{
                 width={"200"}
                 height={"200"}
                 objectFit={"cover"}
-                
               />
               <Input type={"file"} onChange={onPicChange} />
-              <Button variant={"ghost"} onClick={onSaveAvatarButton}>
+              <Button
+                variant={"solid"}
+                onClick={onSaveAvatarButton}
+                _hover={{
+                  background: "#1DA1F2",
+                }}
+              >
                 Save
               </Button>
             </VStack>
@@ -103,7 +107,14 @@ const onSaveUpdateProfileButton = async (body) =>{
             <Text fontSize={"xl"}>Username: {username}</Text>
             <Text fontSize={"xl"}>Email: {email}</Text>
             <Text fontSize={"xl"}>Bio: {bio}</Text>
-            <Button onClick={onOpen}>Edit Profile</Button>
+            <Button
+              onClick={onOpen}
+              _hover={{
+                background: "#1DA1F2",
+              }}
+            >
+              Edit Profile
+            </Button>
             <EditProfile
               isOpen={isOpen}
               onClose={onClose}

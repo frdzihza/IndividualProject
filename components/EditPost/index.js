@@ -15,7 +15,7 @@ import { useState } from "react";
 function EditPost({ isOpen, onClose, thisPost, onSavePatchPostButton }) {
   const [post, setPost] = useState(thisPost);
   const { caption } = post;
-//   console.log(caption)
+  console.log(caption)
   const onUserChange = (event) => {
     setPost({ ...post, [event.target.name]: event.target.value });
   };

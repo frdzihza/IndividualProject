@@ -1,13 +1,17 @@
-import { Box, Button, Flex, Heading, Input, Link, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Input, InputGroup, InputRightElement, Link, Text, Image } from "@chakra-ui/react";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import NextLink from "next/link";
+import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
-function Login() {
+function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const [view, setView] = useState()
+
+  const { data: session} = useSession()
+  if(session) router.replace("/")
 
   const onLoginClick = async () => {
     const res = await signIn("credentials", {
@@ -30,6 +34,8 @@ function Login() {
       justifyContent="center"
       background={"linear-gradient(to top, #5ee7df 0%, #b490ca 100%)"}
     >
+      <Flex h={"50vh"} width="1250px" justifyContent={"center"}>
+        <Image src="/talk-logo.png" />
       <Flex direction="column" p={12} rounded={6}>
         <Heading mb={6}>Sign In</Heading>
         <Input
@@ -40,30 +46,33 @@ function Login() {
           mb={3}
           onChange={(event) => setUsername(event.target.value)}
         />
-        <Input
-          type="password"
-          value={password}
-          placeholder="**************"
-          variant="filled"
-          mb={6}
-          onChange={(event) => setPassword(event.target.value)}
-        />
+        <Flex>
+          <Input
+            type={view ? "text" : "password"}
+            value={password}
+            placeholder="**************"
+            variant="filled"
+            mb={6}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <Button onClick={() => setView((view) => !view)}>
+            {view ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
+          </Button>
+        </Flex>
 
-        <Button
-        
-          color="blue.500"
-          w={"full"}
-          onClick={onLoginClick}
-        >
+        <Button color="blue.500" w={"full"} onClick={onLoginClick}>
           Login
         </Button>
+
         <Text marginTop={"15"}>
           Did not Have an Account?
           <Link href={"/register"}> Sign Up</Link>
         </Text>
       </Flex>
+      </Flex>
     </Flex>
   );
 }
+
 
 export default Login;

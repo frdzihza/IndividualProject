@@ -13,12 +13,13 @@ function Sidebar() {
   const onLogoutClick = async () => {
   await signOut();
   };
+
   return (
-    <Box>
+    <Box width={"300px"} borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Flex
         direction={"column"}
         // width="30vw"
-        height="100vh"
+        height="793px"
         marginLeft={"25"}
         fontFamily={"sans-serif"}
         alignItems={"center"}

@@ -19,7 +19,8 @@ import {
   Link,
   useDisclosure,
   VStack,
-  Center
+  Center,
+  HStack
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { getSession } from "next-auth/react";
@@ -31,6 +32,9 @@ function DetailedPost(props) {
   // console.log({post})
   const {comment} = props
   const [allComment, setAllComment] = useState(comment);
+  const [commentLength, setCommentLength] = useState(props.commentLength);
+  const [paginate, setPaginate] = useState(1);
+  const [paginatePost, setPaginatePost] = useState(3);
 
   
   const renderComment = () => {
@@ -39,13 +43,13 @@ function DetailedPost(props) {
     });
   }
   
-  // console.log(renderComment())
 
   const getComments = async () => {
     try {
       const session = await getSession();
       const { accessToken } = session.user;
       const config = {
+        params: { paginate, paginatePost },
         headers: { Authorization: `Bearer ${accessToken}` },
       };
       const newComment = await axiosInstance.get(
@@ -53,47 +57,78 @@ function DetailedPost(props) {
         config
         );
         setAllComment(newComment.data.data);
+        setPaginate(1)
     } catch (error) {
       if (error.response.data) return alert(error.response.data.message);
       alert(error.message);
     }
   };
-  // console.log(getComments)
+
+  const moreComments = async () =>{
+    setPaginate(paginate + 1);
+    try {
+      const session = await getSession();
+      const { accessToken } = session.user;
+      const config = {
+        params: { paginate: paginate + 1, paginatePost },
+        headers: { Authorization: `Bearer ${accessToken}` },
+      };
+      const newComment = await axiosInstance.get(
+        `/comments/${post._id}`,
+        config
+      );
+      setAllComment([...allComment, ...newComment.data.data]);
+    } catch (error) {
+      if (error.response.data) return alert(error.response.data.message);
+      alert(error.message);
+    }
+  }
+
   
   return (
-    <VStack>
-      <Flex
-        height="100vh"
-        width="full"
-        maxWidth="100vw"
-        ms="auto"
-        me="auto"
-        padding="0 10px"
-      >
-
+    <HStack
+      height="100vh"
+      w={"100vw"}
+      marginEnd={"600px"}
+      background={"linear-gradient(to top, #5ee7df 0%, #b490ca 100%)"}
+    >
+      <Flex>
         <Sidebar />
 
-        <Flex flexGrow={"0.4"} ml={"300px"} w="70%" flexDirection="column" justifyContent={""}>
-          <Feed key={post._id} post={post} user={props.user}></Feed>
-          {/* <Feed/> */}
+        <Flex flexDirection="column">
+          <Box
+            // backgroundColor={"red"}
+            width="800px"
+          >
+            <Feed key={post._id} post={post} user={props.user}></Feed>
+            {/* <Feed/> */}
+          </Box>
           <Box
             rounded={5}
             boxShadow="md"
             marginBottom={2}
             padding="2"
             marginInlineEnd={"25%"}
+            marginInlineStart={"17%"}
+            // backgroundColor="yellow"
           >
             <CommentBox
               key={comment._id}
               post_id={post._id}
               getComments={getComments}
-              
-              />
-                {renderComment()}
+            />
+            {renderComment()}
+            <Flex flexDirection="row-reverse" mt="2">
+              {allComment.length <= commentLength && (
+                <Button variant="link" onClick={moreComments}>
+                  Show More Comment
+                </Button>
+              )}
+            </Flex>
           </Box>
-            </Flex>
-            </Flex>
-    </VStack>
+        </Flex>
+      </Flex>
+    </HStack>
   );
 }
 
@@ -104,7 +139,10 @@ export async function getServerSideProps(context) {
     if (!session) return { redirect: { destination: "/login" } };
 
     const { accessToken} = session.user;
+    const paginate = 1
+    const paginatePost = 3
     const config = {
+      params: {paginate, paginatePost},
       headers: { Authorization: `Bearer ${accessToken}` },
     };
     
@@ -122,6 +160,7 @@ export async function getServerSideProps(context) {
         post: post.data.data.posted,
         user: res.data.data.result,
         comment: comment.data.data,
+        commentLength: comment.data.length
       },
     };
   } catch (error) {
