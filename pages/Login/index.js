@@ -59,11 +59,9 @@ function Login(props) {
             {view ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
           </Button>
         </Flex>
-
         <Button color="blue.500" w={"full"} onClick={onLoginClick}>
           Login
         </Button>
-
         <Text marginTop={"15"}>
           Did not Have an Account?
           <Link href={"/register"}> Sign Up</Link>

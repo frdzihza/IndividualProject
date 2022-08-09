@@ -62,7 +62,7 @@ const renderPost = () => {
 
 
   return (
-    <Flex background={"linear-gradient(to top, #b490ca 0%,  #5ee7df 100%)"}>
+    <Flex background={"linear-gradient(to top, #5ee7df 0%, #b490ca 100%)"}>
       <Sidebar />
       {!props.user.isVerified ? (
         <Flex direction={"column"}>
@@ -75,7 +75,7 @@ const renderPost = () => {
         </Flex>
       ) : (
         <Box marginStart={10} fontSize="m" fontStyle={"italic"} color={"green"}>
-          <MdVerified /> Verified
+          
         </Box>
       )}
       <Flex flexDirection="column" marginInline={2}>

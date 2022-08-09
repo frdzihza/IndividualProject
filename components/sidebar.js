@@ -15,7 +15,7 @@ function Sidebar() {
   };
 
   return (
-    <Box width={"300px"} borderWidth="1px" borderRadius="lg" overflow="hidden">
+    <Box width={"300px"}  overflow="hidden">
       <Flex
         direction={"column"}
         // width="30vw"
@@ -26,7 +26,7 @@ function Sidebar() {
       >
         <NextLink href={"/"}>
           <Flex>
-            {/* <Image src="/talk-logo.png" /> */}
+            
             <Image
               borderRadius="full"
               boxSize="100px"

@@ -40,6 +40,7 @@ const onSaveAvatarButton = async () => {
     const res = await axiosInstance.patch("/users/avatar", body, config);
 
     alert(res.data.message);
+    window.location.reload();
    } catch (error) {
      console.log({ Error });
      alert(error.response.data?.message);
@@ -64,8 +65,8 @@ const onSaveUpdateProfileButton = async (body) =>{
     setUser(getUserProfile.data.data.result)
     alert ("Update Profile Success")
   } catch (error) {
-    console.log(error);
-    alert (error.message)
+    console.log(error.response.data);
+    alert("Username already Exist")
   }
 }
  

@@ -51,7 +51,6 @@ const postHandler = async () => {
     await axiosInstance.post("/posts", newPost, config);
     window.location.reload();
     setCaption("");
-    // alert("Success Create a Post");
   } catch (error) {
     
   }
@@ -60,11 +59,11 @@ const postHandler = async () => {
   return (
     <>
       {!props.user.isVerified ? (
-        <Box w={"625px"} marginInlineStart={"13%"}>
-          <Flex marginLeft={"18px"} fontWeight={"bold"} fontSize={"lg"}>
+        <Box w={"670px"} marginInlineStart={"13%"}>
+          <Flex marginLeft={"50px"} fontWeight={"bold"} fontSize={"lg"}>
             Home
           </Flex>
-          <Flex w={"625px"} justifyContent="center">
+          <Flex justifyContent="center">
             <Image
               src={imageSource}
               borderRadius={"full"}
@@ -122,24 +121,13 @@ const postHandler = async () => {
         </Box>
       ) : (
         <Box
-          // backgroundColor={"red.300"}
-          w={"625px"}
-          // marginLeft={"100px"}
-          // marginInlineEnd={"31%"}
+          w={"670px"}
           marginInlineStart={"13%"}
-          // borderWidth="1px"
-          // borderRadius="lg"
-          // overflow="hidden"
-          // border={"2px"}
         >
-          <Flex fontWeight={"bold"} fontSize={"lg"}>
+          <Flex fontWeight={"bold"} fontSize={"lg"} marginLeft={"45px"}>
             Home
           </Flex>
           <Flex
-            // marginLeft={"1px"}
-            // backgroundColor={"yellow.600"}
-            w={"570px"}
-            // h={"500px"}
             justifyContent="center"
           >
             <Image
@@ -147,7 +135,6 @@ const postHandler = async () => {
               borderRadius={"full"}
               boxSize="50px"
               objectFit={"cover"}
-              // marginLeft={"10px"}
             />
             <form>
               <Input

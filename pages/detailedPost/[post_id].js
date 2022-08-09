@@ -87,10 +87,11 @@ function DetailedPost(props) {
   
   return (
     <HStack
-      height="100vh"
+      height="auto"
       w={"100vw"}
       marginEnd={"600px"}
       background={"linear-gradient(to top, #5ee7df 0%, #b490ca 100%)"}
+      // justifyContent={"center"}
     >
       <Flex>
         <Sidebar />
